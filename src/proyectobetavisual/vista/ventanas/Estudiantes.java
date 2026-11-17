@@ -59,12 +59,18 @@ public class Estudiantes
 
         try {
             for (Estudiante estudiante : estudianteServicio.listarTodos()) {
+                int id = estudiante.getId();
+                String cedula = estudiante.getCedula();
+                String nombres = estudiante.getNombres();
+                String carrera = estudiante.getCarrera();
+                String estado = estudiante.getEstado();
+
                 modelo.addRow(new Object[]{
-                    estudiante.getId(),
-                    estudiante.getCedula(),
-                    estudiante.getNombres(),
-                    estudiante.getCarrera(),
-                    estudiante.getEstado()
+                    id,
+                    cedula,
+                    nombres,
+                    carrera,
+                    estado
                 });
             }
         } catch (SQLException ex) {
@@ -79,9 +85,7 @@ public class Estudiantes
         jTable1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent evento) {
-                if (!evento.getValueIsAdjusting()) {
-                    sincronizarEstudianteDeTablaAFormulario();
-                }
+                sincronizarEstudianteDeTablaAFormulario();
             }
         });
     }

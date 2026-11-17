@@ -16,7 +16,8 @@ public class ProyectoBetaVisual {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        java.awt.EventQueue.invokeLater(() -> new VistaAcceso().setVisible(true));
+        VistaAcceso ventana = new VistaAcceso();
+        ventana.setVisible(true);
     }
 
 }

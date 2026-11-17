@@ -21,9 +21,6 @@ public class VistaAdmin
      */
     public VistaAdmin() {
         initComponents();
-        gestionTarjetasMenuItem.addActionListener(evt -> abrirTarjetas());
-        gestionHistorialMenuItem.addActionListener(evt -> abrirHistorial());
-        cerrarSesionMenuItem.addActionListener(evt -> cerrarSesion());
     }
 
     private void abrirEstudiantes() {
@@ -85,6 +82,7 @@ public class VistaAdmin
         RFIDMenu.addActionListener(this::RFIDMenuActionPerformed);
 
         gestionTarjetasMenuItem.setText("Gestion Tarjetas");
+        gestionTarjetasMenuItem.addActionListener(this::gestionTarjetasMenuItemActionPerformed);
         RFIDMenu.add(gestionTarjetasMenuItem);
 
         jMenuBar1.add(RFIDMenu);
@@ -93,6 +91,7 @@ public class VistaAdmin
         HistorialMenu.addActionListener(this::HistorialMenuActionPerformed);
 
         gestionHistorialMenuItem.setText("Gestion Historial");
+        gestionHistorialMenuItem.addActionListener(this::gestionHistorialMenuItemActionPerformed);
         HistorialMenu.add(gestionHistorialMenuItem);
 
         jMenuBar1.add(HistorialMenu);
@@ -101,6 +100,7 @@ public class VistaAdmin
         cerrarSecionMenu.addActionListener(this::cerrarSecionMenuActionPerformed);
 
         cerrarSesionMenuItem.setText("Cerrar la Sesion Actual");
+        cerrarSesionMenuItem.addActionListener(this::cerrarSesionMenuItemActionPerformed);
         cerrarSecionMenu.add(cerrarSesionMenuItem);
 
         jMenuBar1.add(cerrarSecionMenu);
@@ -127,6 +127,7 @@ public class VistaAdmin
 
     private void RFIDMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RFIDMenuActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_RFIDMenuActionPerformed
 
     private void HistorialMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HistorialMenuActionPerformed
@@ -140,6 +141,21 @@ public class VistaAdmin
     private void estudiantesMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_estudiantesMenuItemActionPerformed
         abrirEstudiantes();
     }//GEN-LAST:event_estudiantesMenuItemActionPerformed
+
+    private void gestionHistorialMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionHistorialMenuItemActionPerformed
+        // TODO add your handling code here:
+        abrirHistorial();
+    }//GEN-LAST:event_gestionHistorialMenuItemActionPerformed
+
+    private void cerrarSesionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionMenuItemActionPerformed
+        // TODO add your handling code here:
+        cerrarSesion();
+    }//GEN-LAST:event_cerrarSesionMenuItemActionPerformed
+
+    private void gestionTarjetasMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gestionTarjetasMenuItemActionPerformed
+        // TODO add your handling code here:
+         abrirTarjetas();
+    }//GEN-LAST:event_gestionTarjetasMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu EstudiantesMenu;
