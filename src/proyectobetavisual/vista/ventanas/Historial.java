@@ -125,15 +125,24 @@ public class Historial
         return LocalDate.parse(texto.trim());
     }
 
+    private void validarFechas(LocalDate desde, LocalDate hasta) {
+        if (desde != null && hasta != null && desde.isAfter(hasta)) {
+            throw new IllegalArgumentException("La fecha Desde no puede ser posterior a Hasta.");
+        }
+    }
+
     private void buscarAccesos() {
         try {
             LocalDate desde = leerFecha(jTextField1.getText());
             LocalDate hasta = leerFecha(jTextField2.getText());
+            validarFechas(desde, hasta);
             Integer idEstudiante = obtenerIdEstudianteSeleccionado();
             cargarAccesosEnTabla(desde, hasta, idEstudiante);
         } catch (DateTimeParseException ex) {
             JOptionPane.showMessageDialog(this,
                     "Escribe las fechas con el formato AAAA-MM-DD.");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 

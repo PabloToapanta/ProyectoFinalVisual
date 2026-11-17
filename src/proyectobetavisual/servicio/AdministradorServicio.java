@@ -11,9 +11,18 @@ public class AdministradorServicio {
 
     /** Devuelve la cuenta si coincide; devuelve null si las credenciales son incorrectas. */
     public Administrador iniciarSesion(String usuario, String clave) throws SQLException {
-        if (usuario == null || usuario.trim().isEmpty() || clave == null || clave.isEmpty()) {
-            return null;
+        String usuarioLimpio = validarCampo(usuario == null ? null : usuario.trim(), "El usuario", 50);
+        validarCampo(clave, "La clave", 255);
+        return administradorDAO.autenticar(usuarioLimpio, clave);
+    }
+
+    private String validarCampo(String valor, String campo, int maximo) {
+        if (valor == null || valor.isBlank()) {
+            throw new IllegalArgumentException(campo + " es obligatorio.");
         }
-        return administradorDAO.autenticar(usuario.trim(), clave);
+        if (valor.length() > maximo) {
+            throw new IllegalArgumentException(campo + " no puede superar " + maximo + " caracteres.");
+        }
+        return valor;
     }
 }
