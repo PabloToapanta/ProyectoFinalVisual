@@ -44,7 +44,7 @@ public class VistaLogin
             VistaAdmin admin = new VistaAdmin();
             admin.setLocationRelativeTo(this);
             admin.setVisible(true);
-            dispose();
+            setVisible(false);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,
                     "No se pudo iniciar sesión: " + ex.getMessage(),
@@ -55,7 +55,7 @@ public class VistaLogin
     private void volverALectura() {
         VistaAcceso acceso = new VistaAcceso();
         acceso.setVisible(true);
-        dispose();
+        setVisible(false);
     }
 
     /**

@@ -27,7 +27,6 @@ public class VistaAcceso
      */
     public VistaAcceso() {
         initComponents();
-        iniciarSecionMenuItem.addActionListener(evt -> abrirLogin());
         configurarFocoDeLectura();
     }
 
@@ -90,7 +89,7 @@ public class VistaAcceso
         VistaLogin login = new VistaLogin();
         login.setLocationRelativeTo(this);
         login.setVisible(true);
-        dispose();
+        setVisible(false);
     }
 
     /**
@@ -202,6 +201,7 @@ public class VistaAcceso
         jMenu1.setText("Login");
 
         iniciarSecionMenuItem.setText("Iniciar Sesion");
+        iniciarSecionMenuItem.addActionListener(this::iniciarSecionMenuItemActionPerformed);
         jMenu1.add(iniciarSecionMenuItem);
 
         jMenuBar1.add(jMenu1);
@@ -257,6 +257,11 @@ public class VistaAcceso
     private void jtxtRFIDTextWaitingKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtRFIDTextWaitingKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_jtxtRFIDTextWaitingKeyTyped
+
+    private void iniciarSecionMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarSecionMenuItemActionPerformed
+        // TODO add your handling code here:
+        abrirLogin();
+    }//GEN-LAST:event_iniciarSecionMenuItemActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel CarreraLabel;

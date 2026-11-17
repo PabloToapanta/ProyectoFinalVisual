@@ -48,7 +48,7 @@ public class VistaAdmin
         VistaLogin login = new VistaLogin();
         login.setLocationRelativeTo(this);
         login.setVisible(true);
-        dispose();
+        setVisible(false);
     }
 
     /**
