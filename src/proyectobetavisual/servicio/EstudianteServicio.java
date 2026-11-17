@@ -43,7 +43,7 @@ public class EstudianteServicio {
     }
 
     public Estudiante buscarPorCedula(String cedula) throws SQLException {
-        return estudianteDAO.buscarPorCedula(requerido(cedula, "La cédula"));
+        return estudianteDAO.buscarPorCedula(validarCedula(cedula));
     }
 
     public boolean desactivar(int id) throws SQLException {
@@ -54,16 +54,28 @@ public class EstudianteServicio {
         if (estudiante == null) {
             throw new IllegalArgumentException("Ingresa los datos del estudiante.");
         }
-        estudiante.setCedula(requerido(estudiante.getCedula(), "La cédula"));
-        estudiante.setNombres(requerido(estudiante.getNombres(), "Los nombres"));
-        estudiante.setCarrera(requerido(estudiante.getCarrera(), "La carrera"));
+        estudiante.setCedula(validarCedula(estudiante.getCedula()));
+        estudiante.setNombres(validarCampo(estudiante.getNombres(), "Los nombres", 100));
+        estudiante.setCarrera(validarCampo(estudiante.getCarrera(), "La carrera", 100));
     }
 
-    private String requerido(String valor, String campo) {
+    private String validarCedula(String cedula) {
+        String valor = validarCampo(cedula, "La cédula", 10);
+        if (!valor.matches("[0-9]{10}")) {
+            throw new IllegalArgumentException("La cédula debe tener 10 dígitos.");
+        }
+        return valor;
+    }
+
+    private String validarCampo(String valor, String campo, int maximo) {
         if (valor == null || valor.trim().isEmpty()) {
             throw new IllegalArgumentException(campo + " es obligatorio.");
         }
-        return valor.trim();
+        String limpio = valor.trim();
+        if (limpio.length() > maximo) {
+            throw new IllegalArgumentException(campo + " no puede superar " + maximo + " caracteres.");
+        }
+        return limpio;
     }
 
     private void validarEstado(String estado) {

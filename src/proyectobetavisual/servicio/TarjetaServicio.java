@@ -36,7 +36,7 @@ public class TarjetaServicio {
     }
 
     public Tarjeta buscarPorCodigoRfid(String codigoRfid) throws SQLException {
-        return tarjetaDAO.buscarPorCodigoRfid(requerido(codigoRfid, "El código RFID"));
+        return tarjetaDAO.buscarPorCodigoRfid(validarCampo(codigoRfid, "El código RFID", 32));
     }
 
     public boolean cambiarEstado(int idTarjeta, String estado) throws SQLException {
@@ -48,18 +48,22 @@ public class TarjetaServicio {
         if (tarjeta == null) {
             throw new IllegalArgumentException("Ingresa los datos de la tarjeta.");
         }
-        tarjeta.setCodigoRfid(requerido(tarjeta.getCodigoRfid(), "El código RFID"));
+        tarjeta.setCodigoRfid(validarCampo(tarjeta.getCodigoRfid(), "El código RFID", 32));
         if (tarjeta.getIdEstudiante() <= 0
                 || estudianteDAO.buscarPorId(tarjeta.getIdEstudiante()) == null) {
             throw new IllegalArgumentException("Selecciona un estudiante registrado.");
         }
     }
 
-    private String requerido(String valor, String campo) {
+    private String validarCampo(String valor, String campo, int maximo) {
         if (valor == null || valor.trim().isEmpty()) {
             throw new IllegalArgumentException(campo + " es obligatorio.");
         }
-        return valor.trim();
+        String limpio = valor.trim();
+        if (limpio.length() > maximo) {
+            throw new IllegalArgumentException(campo + " no puede superar " + maximo + " caracteres.");
+        }
+        return limpio;
     }
 
     private void validarEstado(String estado) {

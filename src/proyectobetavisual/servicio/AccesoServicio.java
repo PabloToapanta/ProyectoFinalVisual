@@ -19,11 +19,7 @@ public class AccesoServicio {
 
     /** Devuelve el estudiante si se autentica; devuelve null si se deniega. */
     public Estudiante procesarCodigo(String codigoRfid) throws SQLException {
-        if (codigoRfid == null || codigoRfid.trim().isEmpty()) {
-            throw new IllegalArgumentException("No se recibió un código RFID.");
-        }
-
-        String codigoLeido = codigoRfid.trim();
+        String codigoLeido = validarCampo(codigoRfid);
         Tarjeta tarjeta = tarjetaDAO.buscarPorCodigoRfid(codigoLeido);
         Estudiante estudiante = null;
         if (tarjeta != null) {
@@ -54,5 +50,16 @@ public class AccesoServicio {
     public List<Acceso> listarFiltrado(LocalDate desde, LocalDate hasta,
             Integer idEstudiante) throws SQLException {
         return accesoDAO.listarFiltrado(desde, hasta, idEstudiante);
+    }
+
+    private String validarCampo(String codigoRfid) {
+        if (codigoRfid == null || codigoRfid.trim().isEmpty()) {
+            throw new IllegalArgumentException("No se recibió un código RFID.");
+        }
+        String codigo = codigoRfid.trim();
+        if (codigo.length() > 32) {
+            throw new IllegalArgumentException("El código RFID no puede superar 32 caracteres.");
+        }
+        return codigo;
     }
 }

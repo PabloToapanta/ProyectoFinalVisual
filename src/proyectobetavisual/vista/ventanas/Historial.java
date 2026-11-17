@@ -118,22 +118,37 @@ public class Historial
         }
     }
 
-    private LocalDate leerFecha(String texto) {
-        if (texto.trim().isEmpty()) {
+    private LocalDate leerFecha(String texto, String campo) {
+        String fecha = texto.trim();
+        if (fecha.isEmpty()) {
             return null;
         }
-        return LocalDate.parse(texto.trim());
+        if (!fecha.matches("[0-9]{4}-[0-9]{2}-[0-9]{2}")) {
+            throw new IllegalArgumentException(
+                    "La fecha " + campo + " debe tener el formato AAAA-MM-DD.");
+        }
+        try {
+            return LocalDate.parse(fecha);
+        } catch (DateTimeParseException ex) {
+            throw new IllegalArgumentException("La fecha " + campo + " no es válida.");
+        }
+    }
+
+    private void validarFechas(LocalDate desde, LocalDate hasta) {
+        if (desde != null && hasta != null && desde.isAfter(hasta)) {
+            throw new IllegalArgumentException("La fecha Desde no puede ser posterior a Hasta.");
+        }
     }
 
     private void buscarAccesos() {
         try {
-            LocalDate desde = leerFecha(jTextField1.getText());
-            LocalDate hasta = leerFecha(jTextField2.getText());
+            LocalDate desde = leerFecha(jTextField1.getText(), "Desde");
+            LocalDate hasta = leerFecha(jTextField2.getText(), "Hasta");
+            validarFechas(desde, hasta);
             Integer idEstudiante = obtenerIdEstudianteSeleccionado();
             cargarAccesosEnTabla(desde, hasta, idEstudiante);
-        } catch (DateTimeParseException ex) {
-            JOptionPane.showMessageDialog(this,
-                    "Escribe las fechas con el formato AAAA-MM-DD.");
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
         }
     }
 

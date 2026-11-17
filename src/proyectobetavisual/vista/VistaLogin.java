@@ -45,7 +45,7 @@ public class VistaLogin
             admin.setLocationRelativeTo(this);
             admin.setVisible(true);
             dispose();
-        } catch (SQLException ex) {
+        } catch (SQLException | IllegalArgumentException ex) {
             JOptionPane.showMessageDialog(this,
                     "No se pudo iniciar sesión: " + ex.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
